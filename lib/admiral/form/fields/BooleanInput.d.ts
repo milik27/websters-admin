@@ -5,5 +5,6 @@ import { InputComponentWithName } from '../interfaces';
 export interface BooleanInputProps extends SwitchProps, FormItemProps {
     name: string;
     onChange?: (value: boolean) => void;
+    isNumber?: boolean;
 }
 export declare const BooleanInput: InputComponentWithName<React.FC<BooleanInputProps>>;
