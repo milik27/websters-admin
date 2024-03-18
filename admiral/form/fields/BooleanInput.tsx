@@ -9,6 +9,7 @@ import { InputComponentWithName } from '../interfaces'
 export interface BooleanInputProps extends SwitchProps, FormItemProps {
     name: string
     onChange?: (value: boolean) => void
+    isNumber?: boolean
 }
 
 export const BooleanInput: InputComponentWithName<React.FC<BooleanInputProps>> = ({
@@ -17,6 +18,7 @@ export const BooleanInput: InputComponentWithName<React.FC<BooleanInputProps>> =
     required,
     columnSpan,
     onChange,
+    isNumber,
     ...switchProps
 }) => {
     const { values, errors, setValues } = useForm()
@@ -25,7 +27,13 @@ export const BooleanInput: InputComponentWithName<React.FC<BooleanInputProps>> =
 
     const _onChange = useCallback(
         (checked: boolean) => {
-            setValues((values: any) => ({ ...values, [name]: checked }))
+            let setChecked: boolean | number = checked
+
+            if (isNumber) {
+                setChecked = checked ? 1 : 0
+            }
+
+            setValues((values: any) => ({ ...values, [name]: setChecked }))
             onChange?.(checked)
         },
         [onChange],
